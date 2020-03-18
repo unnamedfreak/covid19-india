@@ -1,7 +1,7 @@
-const mapbox = () => {
-        map.on('mousemove', function(e) {
-            document.getElementById('info').innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
-        });
+const mapbox = (map) => {
+    map.on('mousemove', function(e) {
+        document.getElementById('hover').innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
+    });
 }
 
 const main = async () => {
@@ -18,6 +18,8 @@ const main = async () => {
         center: [78.96, 22.59], // starting position
         zoom: 4 // starting zoom
     });
+
+    // mapbox(map);
 
     const confirmedEl = document.getElementById("confirmed");
     const deathsEl = document.getElementById("deaths");
