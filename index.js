@@ -9,7 +9,7 @@ const recoveredTotal = document.querySelector('#recovered > .header');
 const lastUpdate = document.getElementById('lastUpdate');
 
 
-const mapbox = (map) => {
+const mapboxHover = (map) => {
     map.on('mousemove', function(e) {
         document.getElementById('hover').innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
     });
@@ -17,8 +17,8 @@ const mapbox = (map) => {
 
 const flyToLoc = (map, mapData) => {
     map.flyTo({
-        center: [mapData.coordinates[0], mapData.coordinates[1]],
-        zoom: mapData.zoom,
+        center: [mapData.map.coordinates[0], mapData.map.coordinates[1]],
+        zoom: mapData.map.zoom,
         essential: true
     })
 }
@@ -40,6 +40,7 @@ const statHandler = (key, stat, el, map, mapData) => {
 
     sp.onclick = () => {
         flyToLoc(map, mapData);
+        info.innerHTML = displayInfo(key, mapData.stats);
     }
 }
 
@@ -58,7 +59,7 @@ const main = async () => {
         zoom: 4 // starting zoom
     });
 
-    mapbox(map);
+    // mapboxHover(map);
 
     confirmedTotal.innerHTML = `Confirmed<br><span class="value">${fullstats.confirmed+fullstats.foreign}</span>`;
     deathsTotal.innerHTML = `Deaths<br><span class="value">${fullstats.deaths}</span>`;
@@ -81,14 +82,14 @@ const main = async () => {
             .addTo(map);
         el.onclick = () => {
             info.innerHTML = displayInfo(key, locations[key].stats);
-            flyToLoc(map, locations[key].map);
+            flyToLoc(map, locations[key]);
         }
             
         // Stats
         if(locations[key].stats.confirmed>0) {
-            statHandler(key, locations[key].stats.confirmed+locations[key].stats.foreign, confirmedEl, map, locations[key].map);
-            statHandler(key, locations[key].stats.deaths, deathsEl, map, locations[key].map);
-            statHandler(key, locations[key].stats.recovered, recoveredEl, map, locations[key].map);
+            statHandler(key, locations[key].stats.confirmed+locations[key].stats.foreign, confirmedEl, map, locations[key]);
+            statHandler(key, locations[key].stats.deaths, deathsEl, map, locations[key]);
+            statHandler(key, locations[key].stats.recovered, recoveredEl, map, locations[key]);
         }
 
     }
