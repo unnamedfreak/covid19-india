@@ -1,7 +1,46 @@
+const confirmedEl = document.getElementById("confirmed");
+const deathsEl = document.getElementById("deaths");
+const recoveredEl = document.getElementById("recovered");
+const info = document.getElementById("info");
+
+const confirmedTotal = document.querySelector('#confirmed > .header');
+const deathsTotal = document.querySelector('#deaths > .header');
+const recoveredTotal = document.querySelector('#recovered > .header');
+const lastUpdate = document.getElementById('lastUpdate');
+
+
 const mapbox = (map) => {
     map.on('mousemove', function(e) {
         document.getElementById('hover').innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
     });
+}
+
+const flyToLoc = (map, mapData) => {
+    map.flyTo({
+        center: [mapData.coordinates[0], mapData.coordinates[1]],
+        zoom: mapData.zoom,
+        essential: true
+    })
+}
+
+const displayInfo = (title, source) => {
+    return `<p class="state">${title}</p>
+    <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${source.confirmed}</span></p>
+    <p class="value">Confirmed (Foreign Nationals): <span id="infoConf">${source.foreign}</span></p>
+    <p class="value">Deaths: <span id="infoDeaths">${source.deaths}</span></p>
+    <p class="value">Recovered: <span id="infoRec">${source.recovered}</span></p>
+    <p class="value">Active: <span id="infoActive">${source.active}</span></p>`
+}
+
+const statHandler = (key, stat, el, map, mapData) => {
+    let sp = document.createElement('span');
+    sp.className = "stat";
+    sp.innerHTML = `${key}: <span class="value">${stat}</span>`;
+    el.appendChild(sp);
+
+    sp.onclick = () => {
+        flyToLoc(map, mapData);
+    }
 }
 
 const main = async () => {
@@ -19,30 +58,14 @@ const main = async () => {
         zoom: 4 // starting zoom
     });
 
-    // mapbox(map);
+    mapbox(map);
 
-    const confirmedEl = document.getElementById("confirmed");
-    const deathsEl = document.getElementById("deaths");
-    const recoveredEl = document.getElementById("recovered");
-    let info = document.getElementById("info");
-
-    const confirmedTotal = document.querySelector('#confirmed > .header');
     confirmedTotal.innerHTML = `Confirmed<br><span class="value">${fullstats.confirmed+fullstats.foreign}</span>`;
-    const deathsTotal = document.querySelector('#deaths > .header');
     deathsTotal.innerHTML = `Deaths<br><span class="value">${fullstats.deaths}</span>`;
-    const recoveredTotal = document.querySelector('#recovered > .header');
     recoveredTotal.innerHTML = `Recovered<br><span class="value">${fullstats.recovered}</span>`;
-    const lastUpdate = document.getElementById('lastUpdate');
     lastUpdate.innerHTML = `Last Updated: ${fullstats.lastUpdate}`
 
-    totalInfo = `<p class="state">Total</p>
-    <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${fullstats.confirmed}</span></p>
-    <p class="value">Confirmed (Foreign Nationals): <span id="infoConf">${fullstats.foreign}</span></p>
-    <p class="value">Deaths: <span id="infoDeaths">${fullstats.deaths}</span></p>
-    <p class="value">Recovered: <span id="infoRec">${fullstats.recovered}</span></p>
-    <p class="value">Active: <span id="infoActive">${fullstats.active}</span></p>`
-
-    info.innerHTML = totalInfo;
+    info.innerHTML = displayInfo("Total", fullstats);
 
     for(let key in locations) {
         let coords = locations[key].map.coordinates;
@@ -57,42 +80,21 @@ const main = async () => {
             .setLngLat([coords[0], coords[1]])
             .addTo(map);
         el.onclick = () => {
-            info.innerHTML = `<p class="state">${key}</p>
-                                <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${locations[key].stats.confirmed}</span></p>
-                                <p class="value">Confirmed (Foriegn Nationals): <span id="infoConf">${locations[key].stats.foreign}</span></p>
-                                <p class="value">Deaths: <span id="infoDeaths">${locations[key].stats.deaths}</span></p>
-                                <p class="value">Recovered: <span id="infoRec">${locations[key].stats.recovered}</span></p>
-                                <p class="value">Active: <span id="infoActive">${locations[key].stats.active}</span></p>`;
-            map.flyTo({
-                center: [coords[0], coords[1]],
-                zoom: locations[key].map.zoom,
-                essential: true
-            })
+            info.innerHTML = displayInfo(key, locations[key].stats);
+            flyToLoc(map, locations[key].map);
         }
             
         // Stats
-        let sp;
         if(locations[key].stats.confirmed>0) {
-            sp = document.createElement('span');
-            sp.className = "stat";
-            sp.innerHTML = `${key}: <span class="value">${locations[key].stats.confirmed+locations[key].stats.foreign}</span>`;
-            confirmedEl.appendChild(sp);
-            
-            sp = document.createElement('span');
-            sp.className = "stat";
-            sp.innerHTML = `${key}: <span class="value">${locations[key].stats.deaths}</span>`;
-            deathsEl.appendChild(sp);
-            
-            sp = document.createElement('span');
-            sp.className = "stat";
-            sp.innerHTML = `${key}: <span class="value">${locations[key].stats.recovered}</span>`;
-            recoveredEl.appendChild(sp);
+            statHandler(key, locations[key].stats.confirmed+locations[key].stats.foreign, confirmedEl, map, locations[key].map);
+            statHandler(key, locations[key].stats.deaths, deathsEl, map, locations[key].map);
+            statHandler(key, locations[key].stats.recovered, recoveredEl, map, locations[key].map);
         }
 
     }
     let mapDiv = document.querySelector('#map > div.mapboxgl-canvas-container.mapboxgl-interactive.mapboxgl-touch-drag-pan.mapboxgl-touch-zoom-rotate > canvas');
     mapDiv.onclick = () => {
-        info.innerHTML = totalInfo
+        info.innerHTML = displayInfo("Total", fullstats);
     }
 }
 

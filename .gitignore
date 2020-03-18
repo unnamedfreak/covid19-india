@@ -6,4 +6,4 @@ src/scrapers/
 database.rules.json
 package-lock.json
 package.json
-src/.DS_Store
+src/
