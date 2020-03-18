@@ -25,13 +25,22 @@ const main = async () => {
     let info = document.getElementById("info");
 
     const confirmedTotal = document.querySelector('#confirmed > .header');
-    confirmedTotal.innerHTML = `Confirmed<br><span class="value">${fullstats.confirmed}</span>`;
+    confirmedTotal.innerHTML = `Confirmed<br><span class="value">${fullstats.confirmed+fullstats.foreign}</span>`;
     const deathsTotal = document.querySelector('#deaths > .header');
-    deathsTotal.innerHTML = `Deaths<br><span class="value">${fullstats["deaths"]}</span>`;
+    deathsTotal.innerHTML = `Deaths<br><span class="value">${fullstats.deaths}</span>`;
     const recoveredTotal = document.querySelector('#recovered > .header');
-    recoveredTotal.innerHTML = `Recovered<br><span class="value">${fullstats["recovered"]}</span>`;
+    recoveredTotal.innerHTML = `Recovered<br><span class="value">${fullstats.recovered}</span>`;
     const lastUpdate = document.getElementById('lastUpdate');
-    lastUpdate.innerHTML = `Last Updated: ${fullstats["lastUpdate"]}`
+    lastUpdate.innerHTML = `Last Updated: ${fullstats.lastUpdate}`
+
+    totalInfo = `<p class="state">Total</p>
+    <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${fullstats.confirmed}</span></p>
+    <p class="value">Confirmed (Foreign Nationals): <span id="infoConf">${fullstats.foreign}</span></p>
+    <p class="value">Deaths: <span id="infoDeaths">${fullstats.deaths}</span></p>
+    <p class="value">Recovered: <span id="infoRec">${fullstats.recovered}</span></p>
+    <p class="value">Active: <span id="infoActive">${fullstats.active}</span></p>`
+
+    info.innerHTML = totalInfo;
 
     for(let key in locations) {
         let coords = locations[key].map.coordinates;
@@ -47,7 +56,8 @@ const main = async () => {
             .addTo(map);
         el.onclick = () => {
             info.innerHTML = `<p class="state">${key}</p>
-                                <p class="value">Confirmed: <span id="infoConf">${locations[key].stats.confirmed}</span></p>
+                                <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${locations[key].stats.confirmed}</span></p>
+                                <p class="value">Confirmed (Foriegn Nationals): <span id="infoConf">${locations[key].stats.foreign}</span></p>
                                 <p class="value">Deaths: <span id="infoDeaths">${locations[key].stats.deaths}</span></p>
                                 <p class="value">Recovered: <span id="infoRec">${locations[key].stats.recovered}</span></p>
                                 <p class="value">Active: <span id="infoActive">${locations[key].stats.active}</span></p>`;
@@ -63,7 +73,7 @@ const main = async () => {
         if(locations[key].stats.confirmed>0) {
             sp = document.createElement('span');
             sp.className = "stat";
-            sp.innerHTML = `${key}: <span class="value">${locations[key].stats.confirmed}</span>`;
+            sp.innerHTML = `${key}: <span class="value">${locations[key].stats.confirmed+locations[key].stats.foreign}</span>`;
             confirmedEl.appendChild(sp);
             
             sp = document.createElement('span');
@@ -77,6 +87,10 @@ const main = async () => {
             recoveredEl.appendChild(sp);
         }
 
+    }
+    let mapDiv = document.querySelector('#map > div.mapboxgl-canvas-container.mapboxgl-interactive.mapboxgl-touch-drag-pan.mapboxgl-touch-zoom-rotate > canvas');
+    mapDiv.onclick = () => {
+        info.innerHTML = totalInfo
     }
 }
 
