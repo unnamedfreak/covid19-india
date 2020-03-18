@@ -11,7 +11,9 @@ const lastUpdate = document.getElementById('lastUpdate');
 
 const mapboxHover = (map) => {
     map.on('mousemove', function(e) {
-        document.getElementById('hover').innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
+        let hover = document.getElementById('hover');
+        hover.style.display="block"
+        hover.innerHTML = JSON.stringify(e.point) + '<br />' + JSON.stringify(e.lngLat.wrap());
     });
 }
 

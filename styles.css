@@ -162,7 +162,7 @@ body {
 }
 
 #hover {
-    display: block;
+    display: none;
     /* position: relative; */
     margin: 0px auto;
     width: 50%;
