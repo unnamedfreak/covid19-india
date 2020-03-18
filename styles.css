@@ -71,6 +71,7 @@ body {
 #info .value {
     padding-left: 20px;
     margin: 10px;
+    font-size: 2vw;
 }
 
 #dnr {
@@ -90,7 +91,7 @@ body {
     padding-top: 15px;
     line-height: normal;
     text-align: center;
-    font-size: 1vw;
+    font-size: 0.6em;
 }
 
 .stat {
@@ -99,12 +100,11 @@ body {
     box-sizing: border-box;
     vertical-align: middle;
     line-height: normal;
-    font-size: 1rem;
+    font-size: 2vw;
 }
 
 .value {
     line-height: normal;
-    font-size: 1rem;
 }
 
 #confirmed .value {
@@ -118,12 +118,12 @@ body {
 }
 
 .header {
-    font-size: 2vw;
+    font-size: 3vw;
     text-align: center;
 }
 
 .header .value {
-    font-size: 2vw;
+    font-size: 3vw;
 }
 
 .sec, .sec #deaths, .sec #recovered {
@@ -174,4 +174,20 @@ body {
     text-align: center;
     color: #222;
     background: #fff;
+}
+
+@media (min-width: 760px) {
+    #lastUpdate {
+        font-size: 1vw;
+    }
+
+    #info .value,
+    .stat {
+        font-size: 1rem;
+    }
+
+    .header,
+    .header .value {
+        font-size: 1.5rem;
+    }
 }
