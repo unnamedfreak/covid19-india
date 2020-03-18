@@ -99,12 +99,12 @@ body {
     box-sizing: border-box;
     vertical-align: middle;
     line-height: normal;
-    font-size: 1.5vw;
+    font-size: 1rem;
 }
 
 .value {
     line-height: normal;
-    font-size: 1.75vw;
+    font-size: 1rem;
 }
 
 #confirmed .value {
