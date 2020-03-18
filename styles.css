@@ -40,10 +40,17 @@ body {
     flex-direction: column;
 }
 
-#deaths, #recovered, #infoSec, #lastUpdate {
+#deaths, #recovered, #infoSec {
     flex: 1;
     border: 1px solid #6e6e6e;
     overflow: scroll;
+}
+
+#source, #lastUpdate {
+    border: 1px solid #6e6e6e;
+    font-size: small;
+    text-align: center;
+    padding: 10px
 }
 
 #info {
@@ -71,7 +78,7 @@ body {
 #info .value {
     padding-left: 20px;
     margin: 10px;
-    font-size: 2vw;
+    font-size: small;
 }
 
 #dnr {
@@ -84,14 +91,6 @@ body {
 #confirmed, #deaths, #recovered {
     display: flex;
     flex-direction: column;
-}
-
-#lastUpdate {
-    max-height: 30px;
-    padding-top: 15px;
-    line-height: normal;
-    text-align: center;
-    font-size: 0.6em;
 }
 
 .stat {
@@ -177,10 +176,6 @@ body {
 }
 
 @media (min-width: 760px) {
-    #lastUpdate {
-        font-size: 1vw;
-    }
-
     #info .value,
     .stat {
         font-size: 1rem;
