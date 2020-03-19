@@ -55,7 +55,7 @@ const main = async () => {
     const full = await fetch('https://covid-india.firebaseio.com/FULLSTATS.json')
     const fullstats = await full.json();
 
-    mapboxgl.accessToken = config.key;
+    mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3dWczdXZlMHp4OTNlbXJ0bW9kNGxpaSJ9.1nnG6uPTpIllBG7TWPt-ZA";
     let map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/dark-v10', //hosted style id
