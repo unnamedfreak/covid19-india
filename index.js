@@ -1,5 +1,3 @@
-import config from './config.js';
-
 const confirmedEl = document.getElementById("confirmed");
 const deathsEl = document.getElementById("deaths");
 const recoveredEl = document.getElementById("recovered");
