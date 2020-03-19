@@ -19,12 +19,20 @@
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.js'></script>
     <link href='https://api.mapbox.com/mapbox-gl-js/v1.8.1/mapbox-gl.css' rel='stylesheet' />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <title>COVID-19 India Database</title>
 </head>
 <body>
     <div id="main">
-        <div id="confirmed" class="sec">
-            <div class="header">Confirmed</div>
+        <div id="confirmedStats" class="sec">
+            <div id="confirmed">
+                <div class="header">Confirmed</div>
+            </div>
+            <div id="miniGraph">
+                <canvas id="myChart" width="350" height="250">
+                    <p>Hello Fallback World</p>
+                </canvas>
+            </div>
         </div>
         <div id='map' style='width: 100vw; height: 100vh;'></div>
         <div id="stats">
@@ -50,6 +58,7 @@
     </div>
     <pre id="hover"></pre> <!-- To get new coordinates -->
     <script src="index.js" type="module"></script>
+    <script src="graph.js" type="module"></script>
     </script>
 </body>
 </html>
