@@ -7,3 +7,4 @@ database.rules.json
 package-lock.json
 package.json
 src/
+config.js
