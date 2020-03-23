@@ -141,13 +141,13 @@ body {
     font-size: 3vw;
 }
 
-.sec, .sec #deaths, .sec #recovered {
+.sec #confirmed, .sec #deaths, .sec #recovered {
     margin: 5px;
     -ms-overflow-style: none;  /* IE 10+ */
     overflow: -moz-scrollbars-none;  /* Firefox */
 }
 
-.sec::-webkit-scrollbar, .sec #deaths::-webkit-scrollbar, .sec #recovered::-webkit-scrollbar{
+.sec #confirmed::-webkit-scrollbar, .sec #deaths::-webkit-scrollbar, .sec #recovered::-webkit-scrollbar{
     display: none; /* Safari and Chrome */
 }
 
