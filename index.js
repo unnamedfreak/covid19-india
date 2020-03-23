@@ -75,10 +75,11 @@ const main = async () => {
         let el = document.createElement('div');
         el.className = "marker";
         let level = locations[key].stats.active / fullstats.active;
-        if(level > 0 && level < 0.25) el.classList.add("level1");
-        if(level >= 0.25 && level < 0.50) el.classList.add("level2");
-        if(level >= 0.50 && level < 0.75) el.classList.add("level3");
-        if(level >= 0.75 && level < 1.00) el.classList.add("level3");
+        if(level > 0 && level < 0.05) el.classList.add("level1");
+        if(level >= 0.05 && level < 0.15) el.classList.add("level2");
+        if(level >= 0.15 && level < 0.25) el.classList.add("level3");
+        if(level >= 0.25 && level < 0.50) el.classList.add("level4");
+        if(level >= 0.50 && level < 1.00) el.classList.add("level5");
         new mapboxgl.Marker(el)
             .setLngLat([coords[0], coords[1]])
             .addTo(map);
