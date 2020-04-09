@@ -53,7 +53,8 @@ const main = async () => {
     const full = await fetch('https://covid-india.firebaseio.com/FULLSTATS.json')
     const fullstats = await full.json();
 
-    mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3dWczdXZlMHp4OTNlbXJ0bW9kNGxpaSJ9.1nnG6uPTpIllBG7TWPt-ZA";
+    // mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3dWczdXZlMHp4OTNlbXJ0bW9kNGxpaSJ9.1nnG6uPTpIllBG7TWPt-ZA";
+    mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3eW5mb3Q3MDd3cjNrbXl6Zm52dm92NCJ9.cP2m0g27T5o0ggAkzulbVA";
     let map = new mapboxgl.Map({
         container: 'map', // container id
         style: 'mapbox://styles/mapbox/dark-v10', //hosted style id
@@ -61,7 +62,7 @@ const main = async () => {
         zoom: 4 // starting zoom
     });
 
-    // mapboxHover(map);
+    // mapboxHover(map)
 
     confirmedTotal.innerHTML = `Confirmed<br><span class="value">${fullstats.confirmed+fullstats.foreign}</span>`;
     deathsTotal.innerHTML = `Deaths<br><span class="value">${fullstats.deaths}</span>`;
