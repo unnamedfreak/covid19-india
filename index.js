@@ -27,8 +27,7 @@ const flyToLoc = (map, mapData) => {
 
 const displayInfo = (title, source) => {
     return `<p class="state">${title}</p>
-    <p class="value">Confirmed (Indian Nationals): <span id="infoConf">${source.confirmed}</span></p>
-    <p class="value">Confirmed (Foreign Nationals): <span id="infoConf">${source.foreign}</span></p>
+    <p class="value">Confirmed: <span id="infoConf">${source.confirmed}</span></p>
     <p class="value">Deaths: <span id="infoDeaths">${source.deaths}</span></p>
     <p class="value">Recovered: <span id="infoRec">${source.recovered}</span></p>
     <p class="value">Active: <span id="infoActive">${source.active}</span></p>`
