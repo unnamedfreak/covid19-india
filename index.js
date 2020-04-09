@@ -53,7 +53,6 @@ const main = async () => {
     const full = await fetch('https://covid-india.firebaseio.com/FULLSTATS.json')
     const fullstats = await full.json();
 
-    // mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3dWczdXZlMHp4OTNlbXJ0bW9kNGxpaSJ9.1nnG6uPTpIllBG7TWPt-ZA";
     mapboxgl.accessToken = "pk.eyJ1IjoidmVlcnUxNTMiLCJhIjoiY2s3eW5mb3Q3MDd3cjNrbXl6Zm52dm92NCJ9.cP2m0g27T5o0ggAkzulbVA";
     let map = new mapboxgl.Map({
         container: 'map', // container id
@@ -91,7 +90,7 @@ const main = async () => {
             
         // Stats
         if(locations[key].stats.confirmed>0) {
-            statHandler(key, locations[key].stats.confirmed+locations[key].stats.foreign, confirmedEl, map, locations[key]);
+            statHandler(key, locations[key].stats.confirmed, confirmedEl, map, locations[key]);
             statHandler(key, locations[key].stats.deaths, deathsEl, map, locations[key]);
             statHandler(key, locations[key].stats.recovered, recoveredEl, map, locations[key]);
         }
